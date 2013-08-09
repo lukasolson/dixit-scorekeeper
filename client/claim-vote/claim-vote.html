@@ -1,0 +1,41 @@
+<div class="spaced" ng-hide="voted || (claimed && game.players[game.storytellerIndex].id == playerId)">
+	<strong>{{playerId == game.players[game.storytellerIndex].id && "You" || game.players[game.storytellerIndex].name}}</strong>
+	{{playerId == game.players[game.storytellerIndex].id && "are" || "is"}}
+	the storyteller.
+</div>
+
+<div ng-hide="claimed">
+	<div class="spaced">
+		Which card is yours?
+		<div ng-repeat="card in game.cards">
+			<label>
+				<input type="radio" value="{{$index}}" name="claim" ng-model="$parent.claimCardIndex" />
+				{{$index + 1}}
+			</label>
+		</div>
+	</div>
+
+	<div class="spaced">
+		<button class="pure-button pure-button-primary" ng-click="claimCard();">Submit</button>
+	</div>
+</div>
+
+<div ng-show="!voted && claimed && game.players[game.storytellerIndex].id != playerId">
+	<div class="spaced">
+		Which card do you think is the storyteller's?
+		<div ng-repeat="card in game.cards" ng-show="$index != claimCardIndex">
+			<label>
+				<input type="radio" value="{{$index}}" name="vote" ng-model="$parent.voteCardIndex" />
+				{{$index + 1}}
+			</label>
+		</div>
+	</div>
+
+	<div class="spaced">
+		<button class="pure-button pure-button-primary" ng-click="voteForCard();">Submit</button>
+	</div>
+</div>
+
+<div class="spaced" ng-show="voted || (claimed && game.players[game.storytellerIndex].id == playerId)">
+	Waiting for other players. . . .
+</div>

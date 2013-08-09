@@ -1,0 +1,23 @@
+<table class="spaced pure-table pure-table-horizontal">
+	<thead>
+		<tr>
+			<th>Player</th>
+			<th>Score</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="player in game.players">
+			<td>{{player.name}}</td>
+			<td>{{player.score}}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="spaced">
+	<strong>{{playerId == game.players[game.storytellerIndex + 1].id && "You" || game.players[game.storytellerIndex + 1].name}}</strong>
+	will be the next storyteller.
+</div>
+
+<div class="spaced">
+	<button class="pure-button pure-button-primary" ng-click="beginRound();">Begin Round</button>
+</div>

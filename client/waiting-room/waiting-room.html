@@ -1,0 +1,14 @@
+<div class="spaced">
+	<button class="pure-button pure-button-primary" ng-click="createGame();">Create Game</button>
+</div>
+
+<div class="spaced">
+	<table class="pure-table pure-table-horizontal">
+		<tbody>
+			<tr ng-repeat="game in games" ng-show="game.cards == null">
+				<td><span ng-repeat="player in game.players"><span ng-show="$index > 0">, </span>{{player.name}}</span></td>
+				<td><button class="pure-button pure-button-primary" ng-click="joinGame(game.id);">Join</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,16 @@
+<div class="spaced">
+	The correct card was <strong>{{game.players[game.storytellerIndex].card.index + 1}}</strong>.
+</div>
+
+<div ng-repeat="player in game.players" class="spaced">
+	<div><strong>{{playerId == player.id && "You" || player.name}} ({{player.results|sum:'score'}} points)</strong></div>
+	<ul>
+		<li ng-repeat="result in player.results">
+			({{result.score}} points) {{result.description}}
+		</li>
+	</ul>
+</div>
+
+<div class="spaced">
+	<button class="pure-button pure-button-primary" ng-click="next();">Next</button>
+</div>

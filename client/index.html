@@ -1,0 +1,21 @@
+<!DOCTYPE HTML> 
+<html>
+	<head>
+		<title>Dixit Scorekeeper</title>
+		<link rel="stylesheet" href="//yui.yahooapis.com/pure/0.2.1/pure-min.css" />
+		<link rel="stylesheet" href="app.css" />
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	</head>
+	<body ng-app="app">
+		<div ng-view></div>
+		<script src="lib/angular/angular.js"></script>
+		<script src="//localhost:1112/socket.io/socket.io.js"></script>
+		<script src="app.js"></script>
+		<script src="common/services/socket.js"></script>
+		<script src="common/filters/sum.js"></script>
+		<script src="waiting-room/waiting-room-controller.js"></script>
+		<script src="game-stats/game-stats-controller.js"></script>
+		<script src="claim-vote/claim-vote-controller.js"></script>
+		<script src="results/results-controller.js"></script>
+	</body>
+</html>

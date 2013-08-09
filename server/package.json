@@ -1,0 +1,11 @@
+{
+	"name": "dixit-scorekeeper",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node app"
+	},
+	"dependencies": {
+		"socket.io": "latest"
+	}
+}
