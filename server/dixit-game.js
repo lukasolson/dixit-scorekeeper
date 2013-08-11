@@ -65,28 +65,32 @@ DixitGame.prototype.endRound = function () {
 		}
 	} else {
 		// In any other case, the storyteller scores 3 points and so do the players who found his image.
-		storyteller.results.push({
-			score: 3,
-			description: "Some (but not all) players found your image"
-		});
-
+		var voters = [];
 		for (var i = 0; i < storyteller.card.voterIds.length; i++) {
+			voters.push(this.playersMap[storyteller.card.voterIds[i]].name);
 			this.playersMap[storyteller.card.voterIds[i]].results.push({
 				score: 3,
 				description: "You found the storyteller's image"
 			});
 		}
+
+		storyteller.results.push({
+			score: 3,
+			description: voters.join(", ") + " found your image"
+		});
 	}
 
 	// Each player, except the storyteller, scores one point for each vote that was placed on his or her image.
 	for (var i = 0; i < this.players.length; i++) {
-		if (i === this.storytellerIndex) continue;
+		if (i === this.storytellerIndex || this.players[i].card.voterIds.length === 0) continue;
+		var voters = [];
 		for (var j = 0; j < this.players[i].card.voterIds.length; j++) {
-			this.players[i].results.push({
-				score: 1,
-				description: this.playersMap[this.players[i].card.voterIds[j]].name + " voted for your image"
-			});
+			voters.push(this.playersMap[this.players[i].card.voterIds[j]].name);
 		}
+		this.players[i].results.push({
+			score: voters.length,
+			description: voters.join(", ") + " voted for your image"
+		});
 	}
 
 	for (var i = 0; i < this.players.length; i++) {
