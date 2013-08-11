@@ -2,9 +2,10 @@ angular.module("app").controller("claimVoteController", function ($scope, $locat
 	$scope.game = {};
 	$scope.playerId = socket.id;
 	$scope.claimCardIndex = $scope.voteCardIndex = -1;
-	$scope.claimed = $scope.voted = false;
+	$scope.claimedAndVoted = false;
 
 	socket.on("game", function (game) {
+		if (game === null) $location.path("");
 		$scope.$apply(function () {
 			$scope.game = game;
 		});
@@ -17,13 +18,10 @@ angular.module("app").controller("claimVoteController", function ($scope, $locat
 		});
 	});
 
-	$scope.claimCard = function () {
+	$scope.claimAndVote = function () {
+		if ($scope.claimCardIndex === $scope.voteCardIndex) return alert("You cannot vote for your own card.");
 		socket.emit("claimCard", $scope.claimCardIndex);
-		$scope.claimed = true;
-	};
-
-	$scope.voteForCard = function () {
-		socket.emit("voteForCard", $scope.voteCardIndex);
-		$scope.voted = true;
+		if ($scope.playerId !== $scope.game.players[$scope.game.storytellerIndex].id) socket.emit("voteForCard", $scope.voteCardIndex);
+		$scope.claimedAndVoted = true;
 	};
 });

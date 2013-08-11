@@ -54,7 +54,7 @@ DixitGame.prototype.endRound = function () {
 				description: "All players found the storyteller's image"
 			});
 		}
-	} else if (storyteller.card.voterIds.length === this.players.length - 1) {
+	} else if (storyteller.card.voterIds.length === 0) {
 		// If none of the players have found the storyteller’s image, then the storyteller doesn’t score any points and everyone else scores 2 points.
 		for (var i = 0; i < this.players.length; i++) {
 			if (i === this.storytellerIndex) continue;
@@ -66,7 +66,7 @@ DixitGame.prototype.endRound = function () {
 	} else {
 		// In any other case, the storyteller scores 3 points and so do the players who found his image.
 		storyteller.results.push({
-			score: 2,
+			score: 3,
 			description: "Some (but not all) players found your image"
 		});
 

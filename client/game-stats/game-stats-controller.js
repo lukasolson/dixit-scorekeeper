@@ -3,6 +3,7 @@ angular.module("app").controller("gameStatsController", function ($scope, $locat
 	$scope.playerId = socket.id;
 
 	socket.on("game", function (game) {
+		if (game === null) $location.path("");
 		$scope.$apply(function () {
 			$scope.game = game;
 		});
