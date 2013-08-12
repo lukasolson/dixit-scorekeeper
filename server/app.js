@@ -49,9 +49,11 @@ io.sockets.on("connection", function (socket) {
 
 	socket.on("claimCard", function (cardIndex) {
 		game.claimCard(player, cardIndex);
+		io.sockets.in(game.id).emit("game", game);
 	});
 
 	socket.on("voteForCard", function (cardIndex) {
 		game.voteForCard(player, cardIndex);
+		io.sockets.in(game.id).emit("game", game);
 	});
 });

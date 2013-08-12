@@ -31,5 +31,8 @@
 </div>
 
 <div class="spaced" ng-show="claimedAndVoted">
-	Waiting for other players. . . .
+	Waiting for these players:
+	<ul>
+		<li ng-repeat="player in game.players" ng-show="player.card == null">{{player.name}}</li>
+	</ul>
 </div>
