@@ -19,7 +19,7 @@ io.sockets.on("connection", function (socket) {
 
 	socket.on("game", function () {
 		socket.emit("game", game);
-	})
+	});
 
 	socket.on("createPlayer", function (name) {
 		(players[socket.id] = player).name = name;
