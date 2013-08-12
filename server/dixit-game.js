@@ -94,9 +94,11 @@ DixitGame.prototype.endRound = function () {
 	}
 
 	for (var i = 0; i < this.players.length; i++) {
+		this.players[i].roundScore = 0;
 		for (var j = 0; j < this.players[i].results.length; j++) {
-			this.players[i].score += this.players[i].results[j].score;
+			this.players[i].roundScore += this.players[i].results[j].score;
 		}
+		this.players[i].score += this.players[i].roundScore;
 	}
 
 	this.emit("endRound");

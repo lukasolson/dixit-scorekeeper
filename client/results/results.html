@@ -6,16 +6,16 @@
 	<thead>
 		<tr>
 			<th>Player</th>
-			<th>Card</th>
+			<th>#</th>
 			<th>Results</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="player in game.players">
+		<tr ng-repeat="player in game.players | orderBy:'-roundScore'">
 			<td>{{player.name}}</td>
 			<td>{{player.card.index + 1}}</td>
 			<td>
-				<div><strong>{{player.results|sum:'score'}} points</strong></div>
+				<div><strong>{{player.roundScore}} points</strong></div>
 				<div ng-repeat="result in player.results">(+{{result.score}}) {{result.description}}</div>
 			</td>
 		</tr>
