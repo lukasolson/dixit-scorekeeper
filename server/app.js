@@ -6,10 +6,11 @@ app.listen(1112);
 
 io.set("log level", 1);
 
-var games = {};
+var games = {},
+	players = {};
 
 io.sockets.on("connection", function (socket) {
-	var player = {id: socket.id, name: null, score: 0},
+	var player = {id: socket.id, name: null, score: 0, gameId: null},
 		game = null;
 
 	socket.on("games", function () {
@@ -21,11 +22,12 @@ io.sockets.on("connection", function (socket) {
 	})
 
 	socket.on("createPlayer", function (name) {
-		player.name = name;
+		(players[socket.id] = player).name = name;
 	});
 
 	socket.on("createGame", function () {
 		game = games[player.id] = new DixitGame(player.id);
+		player.gameId = game.id;
 		game.addPlayer(player);
 		socket.join(game.id);
 		io.sockets.emit("games", games);
@@ -33,9 +35,18 @@ io.sockets.on("connection", function (socket) {
 
 	socket.on("joinGame", function (gameId) {
 		(game = games[gameId]).addPlayer(player);
+		player.gameId = gameId;
 		socket.join(game.id);
 		io.sockets.in(game.id).emit("game", game);
 		io.sockets.emit("games", games);
+	});
+
+	socket.on("rejoinGame", function (playerId) {
+		player = players[playerId];
+		if (player.gameId) {
+			game = games[player.gameId];
+			socket.join(game.id);
+		}
 	});
 
 	socket.on("beginRound", function () {
