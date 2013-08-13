@@ -1,17 +1,19 @@
-<table class="spaced pure-table pure-table-horizontal">
-	<thead>
-		<tr>
-			<th>Player</th>
-			<th>Score</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="player in game.players | orderBy:'-score'">
-			<td>{{player.name}}</td>
-			<td>{{player.score}}</td>
-		</tr>
-	</tbody>
-</table>
+<div class="spaced">
+	<table class="fill-width pure-table pure-table-horizontal">
+		<thead>
+			<tr>
+				<th>Player</th>
+				<th>Score</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="player in game.players | orderBy:'-score'">
+				<td>{{player.name}}</td>
+				<td>{{player.score}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 <div class="spaced">
 	<strong>{{playerId == game.players[game.storytellerIndex + 1].id && "You" || game.players[game.storytellerIndex + 1].name}}</strong>
@@ -20,6 +22,6 @@
 
 <div class="spaced" ng-show="game.players.length < 3">Waiting for more players. . . .</div>
 
-<div class="spaced" ng-hide="game.players.length < 3">
-	<button class="pure-button pure-button-primary" ng-click="beginRound();">Begin Round</button>
+<div class="spaced pure-g" ng-hide="game.players.length < 3">
+	<button class="pure-u-1 pure-button pure-button-primary" ng-click="beginRound();">Begin Round</button>
 </div>

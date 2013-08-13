@@ -1,3 +1,7 @@
 .spaced {
 	margin: 1em;
 }
+
+.fill-width {
+	width: 100%;
+}
