@@ -18,6 +18,8 @@
 	will be the next storyteller.
 </div>
 
-<div class="spaced">
+<div class="spaced" ng-show="game.players.length < 3">Waiting for more players. . . .</div>
+
+<div class="spaced" ng-hide="game.players.length < 3">
 	<button class="pure-button pure-button-primary" ng-click="beginRound();">Begin Round</button>
 </div>

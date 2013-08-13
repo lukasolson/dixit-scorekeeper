@@ -5,7 +5,7 @@
 <div class="spaced">
 	<table class="pure-table pure-table-horizontal">
 		<tbody>
-			<tr ng-repeat="game in games" ng-show="game.cards == null">
+			<tr ng-repeat="game in games" ng-show="game.cards == null && game.players.length < 12">
 				<td><span ng-repeat="player in game.players"><span ng-show="$index > 0">, </span>{{player.name}}</span></td>
 				<td><button class="pure-button pure-button-primary" ng-click="joinGame(game.id);">Join</button></td>
 			</tr>
