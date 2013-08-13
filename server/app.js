@@ -41,13 +41,14 @@ io.sockets.on("connection", function (socket) {
 		io.sockets.emit("games", games);
 	});
 
-	socket.on("rejoinGame", function (playerId) {
+	socket.on("rejoinGame", function (playerId, callback) {
 		player = players[playerId];
 		if (player && player.gameId) {
 			game = games[player.gameId];
 			socket.join(game.id);
 		}
 		socket.emit("game", game);
+		callback(game);
 	});
 
 	socket.on("beginRound", function () {
