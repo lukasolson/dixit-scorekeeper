@@ -1,5 +1,5 @@
 angular.module("app").factory("socket", function () {
-	var socket = io.connect("http://192.168.1.18:1112");
+	var socket = io.connect("http://localhost:1112");
 	socket.on("connect", function () {
 		var playerId = localStorage.getItem("playerId");
 		if (playerId && confirm("Looks like you slipped out. Hit OK to resume, or Cancel to create a new player.")) {
