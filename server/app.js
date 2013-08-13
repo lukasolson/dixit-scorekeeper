@@ -47,6 +47,7 @@ io.sockets.on("connection", function (socket) {
 			game = games[player.gameId];
 			socket.join(game.id);
 		}
+		socket.emit("game", game);
 	});
 
 	socket.on("beginRound", function () {

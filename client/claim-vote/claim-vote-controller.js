@@ -3,10 +3,9 @@ angular.module("app").controller("claimVoteController", function ($scope, $locat
 	$scope.playerId = socket.id;
 	$scope.claimCards = [];
 	$scope.voteCards = [];
-	$scope.claimedAndVoted = false;
 
 	socket.on("game", function (game) {
-		if (game === null) $location.path("");
+		if (game === null) return $location.path("");
 		$scope.$apply(function () {
 			$scope.game = game;
 		});
@@ -55,7 +54,5 @@ angular.module("app").controller("claimVoteController", function ($scope, $locat
 
 		socket.emit("claimCards", claimCardIndices);
 		if ($scope.playerId !== $scope.game.players[$scope.game.storytellerIndex].id) socket.emit("voteForCards", voteCardIndices);
-
-		$scope.claimedAndVoted = true;
 	};
 });

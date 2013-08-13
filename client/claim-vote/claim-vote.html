@@ -1,4 +1,4 @@
-<div ng-hide="claimedAndVoted">
+<div ng-hide="game.playersMap[playerId].cards.length > 0">
 	<div class="spaced">
 		<strong>{{playerId == game.players[game.storytellerIndex].id && "You" || game.players[game.storytellerIndex].name}}</strong>
 		{{playerId == game.players[game.storytellerIndex].id && "are" || "is"}}
@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-<div class="spaced" ng-show="claimedAndVoted">
+<div class="spaced" ng-show="game.playersMap[playerId].cards.length > 0">
 	Waiting for these players:
 	<ul>
 		<li ng-repeat="player in game.players" ng-show="player.cards.length == 0">{{player.name}}</li>

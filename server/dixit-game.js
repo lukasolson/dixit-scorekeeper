@@ -7,7 +7,13 @@ function DixitGame(id) {
 	this.storytellerIndex = -1;
 
 	this.cards = this.votesCount = null;
+	this.state = DixitGame.states.GAME_STATS;
 }
+
+DixitGame.states = {
+	GAME_STATS: "game-stats",
+	CLAIMING_VOTING: "claim-vote"
+};
 
 DixitGame.prototype = new EventEmitter();
 
@@ -17,8 +23,8 @@ DixitGame.prototype.addPlayer = function (player) {
 };
 
 DixitGame.prototype.beginRound = function () {
+	this.state = DixitGame.states.CLAIMING_VOTING;
 	this.storytellerIndex = (this.storytellerIndex + 1) % this.players.length;
-
 	this.cards = [];
 
 	// With 3 players, the players (except for the storyteller) each hand in two image cards (instead of just one). This way, 5 image cards are always revealed, and players must still find the storyteller's image among those.
@@ -53,6 +59,8 @@ DixitGame.prototype.voteForCards = function (player, cardIndices) {
 };
 
 DixitGame.prototype.endRound = function () {
+	this.state = DixitGame.states.GAME_STATS;
+
 	var storyteller = this.players[this.storytellerIndex];
 	if (storyteller.cards[0].voterIds.length === this.players.length - 1) {
 		// If all the players have found the storyteller’s image, then the storyteller doesn’t score any points and everyone else scores 2 points.
