@@ -6,20 +6,21 @@
 	</div>
 
 	<div class="spaced">
-		Which card is yours?
+		<div ng-hide="game.players.length == 3 && playerId != game.players[game.storytellerIndex].id">Which card is yours?</div>
+		<div ng-show="game.players.length == 3 && playerId != game.players[game.storytellerIndex].id">Which two cards are yours?</div>
 		<div ng-repeat="card in game.cards">
 			<label>
-				<input type="radio" value="{{$index}}" name="claim" ng-model="$parent.claimCardIndex" />
+				<input type="checkbox" ng-model="$parent.claimCards[$index]" ng-change="$parent.claimCard($index);" />
 				{{$index + 1}}
 			</label>
 		</div>
 	</div>
 
 	<div class="spaced" ng-hide="playerId == game.players[game.storytellerIndex].id">
-		Which card do you think is the storyteller's?
-		<div ng-repeat="card in game.cards" ng-hide="$index == claimCardIndex">
+		Which card do you think is the storyteller's? <span ng-show="game.players.length >= 7">You may vote for up to two cards.</span>
+		<div ng-repeat="card in game.cards" ng-hide="claimCards[$index]">
 			<label>
-				<input type="radio" value="{{$index}}" name="vote" ng-model="$parent.voteCardIndex" />
+				<input type="checkbox" ng-model="$parent.voteCards[$index]" ng-change="$parent.voteForCard($index);" />
 				{{$index + 1}}
 			</label>
 		</div>
@@ -33,6 +34,6 @@
 <div class="spaced" ng-show="claimedAndVoted">
 	Waiting for these players:
 	<ul>
-		<li ng-repeat="player in game.players" ng-show="player.card == null">{{player.name}}</li>
+		<li ng-repeat="player in game.players" ng-show="player.cards.length == 0">{{player.name}}</li>
 	</ul>
 </div>

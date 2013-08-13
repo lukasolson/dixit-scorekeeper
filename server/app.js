@@ -43,7 +43,7 @@ io.sockets.on("connection", function (socket) {
 
 	socket.on("rejoinGame", function (playerId) {
 		player = players[playerId];
-		if (player.gameId) {
+		if (player && player.gameId) {
 			game = games[player.gameId];
 			socket.join(game.id);
 		}
@@ -58,13 +58,13 @@ io.sockets.on("connection", function (socket) {
 		});
 	});
 
-	socket.on("claimCard", function (cardIndex) {
-		game.claimCard(player, cardIndex);
+	socket.on("claimCards", function (cardIndices) {
+		game.claimCards(player, cardIndices);
 		io.sockets.in(game.id).emit("game", game);
 	});
 
-	socket.on("voteForCard", function (cardIndex) {
-		game.voteForCard(player, cardIndex);
+	socket.on("voteForCards", function (cardIndices) {
+		game.voteForCards(player, cardIndices);
 		io.sockets.in(game.id).emit("game", game);
 	});
 });

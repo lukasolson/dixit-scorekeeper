@@ -13,7 +13,7 @@
 	<tbody>
 		<tr ng-repeat="player in game.players | orderBy:'-roundScore'">
 			<td>{{player.name}}</td>
-			<td>{{player.card.index + 1}}</td>
+			<td><span ng-repeat="card in player.cards"><span ng-show="$index > 0">, </span>{{card.index + 1}}</span></td>
 			<td>
 				<div><strong>{{player.roundScore}} points</strong></div>
 				<div ng-repeat="result in player.results">(+{{result.score}}) {{result.description}}</div>
