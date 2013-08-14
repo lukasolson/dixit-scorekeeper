@@ -3,6 +3,9 @@
 		<strong>{{playerId == game.players[game.storytellerIndex].id && "You" || game.players[game.storytellerIndex].name}}</strong>
 		{{playerId == game.players[game.storytellerIndex].id && "are" || "is"}}
 		the storyteller.
+
+		(<strong>{{playerId == game.players[(game.storytellerIndex + 1) % game.players.length].id && "You" || game.players[(game.storytellerIndex + 1) % game.players.length].name}}</strong>
+		will be next.)
 	</div>
 
 	<div class="spaced">
