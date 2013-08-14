@@ -68,7 +68,7 @@ DixitGame.prototype.endRound = function () {
 			if (i === this.storytellerIndex) continue;
 			this.players[i].results.push({
 				score: 2,
-				description: "All players found the storyteller's image"
+				description: "Everybody voted correctly"
 			});
 		}
 	} else if (storyteller.cards[0].voterIds.length === 0) {
@@ -77,7 +77,7 @@ DixitGame.prototype.endRound = function () {
 			if (i === this.storytellerIndex) continue;
 			this.players[i].results.push({
 				score: 2,
-				description: "No players found the storyteller's image"
+				description: "Nobody voted correctly"
 			});
 		}
 	} else {
@@ -88,20 +88,20 @@ DixitGame.prototype.endRound = function () {
 			var player = this.playersMap[storyteller.cards[0].voterIds[i]];
 			player.results.push({
 				score: 3,
-				description: "You found the storyteller's image"
+				description: "Voted correctly"
 			});
 
 			// With 7 or more players, players who voted for only one image score 1 extra point if they have found the storyteller’s image.
 			if (this.players.length >= 7 && player.votes.length === 1) {
 				player.results.push({
 					score: 1,
-					description: "You voted for only one image and found the storyteller's image"
+					description: "Used only one vote"
 				});
 			}
 		}
 		storyteller.results.push({
 			score: 3,
-			description: voters.join(", ") + " found your image"
+			description: "Only " + voters.join(", ") + " voted correctly"
 		});
 	}
 
@@ -117,7 +117,7 @@ DixitGame.prototype.endRound = function () {
 			this.players[i].results.push({
 				// With 7 or more players, each player (other than the storyteller) scores one bonus point for each vote earned by his or her image, with a limit of 3 bonus points maximum (even if their image has earned more than 3 votes).
 				score: (this.players.length >= 7 && Math.min(voters.length, 3) || voters.length),
-				description: voters.join(", ") + " voted for your image (#" +( this.players[i].cards[j].index+ 1)  + ")"
+				description: "Vote" + (voters.length > 1 ? "s" : "") + " from " + voters.join(", ") + (this.players[i].cards.length > 1 ? " on card #" + (this.players[i].cards[j].index + 1) : "")
 			});
 		}
 	}
