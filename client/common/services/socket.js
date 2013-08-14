@@ -1,5 +1,6 @@
 angular.module("app").factory("socket", function ($rootScope, $location) {
 	var socket = io.connect("http://localhost:1112");
+
 	socket.on("connect", function () {
 		var playerId = localStorage.getItem("playerId");
 		if (playerId && confirm("Looks like you slipped out. Hit OK to resume, or Cancel to create a new player.")) {
@@ -18,6 +19,20 @@ angular.module("app").factory("socket", function ($rootScope, $location) {
 			socket.emit("createPlayer", prompt("Your name:"));
 		}
 	});
+
+	socket.on("games", function (games) {
+		$rootScope.$apply(function () {
+			$rootScope.games = games;
+		});
+	});
+	socket.emit("games");
+
+	socket.on("game", function (game) {
+		$rootScope.$apply(function () {
+			$rootScope.game = game;
+		});
+	});
+	socket.emit("game");
 
 	return socket;
 });

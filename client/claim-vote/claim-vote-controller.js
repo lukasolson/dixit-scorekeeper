@@ -1,22 +1,14 @@
 angular.module("app").controller("claimVoteController", function ($scope, $location, socket) {
-	$scope.game = {};
 	$scope.playerId = socket.id;
 	$scope.claimCards = [];
 	$scope.voteCards = [];
 
-	socket.on("game", function (game) {
-		if (game === null) return $location.path("");
-		$scope.$apply(function () {
-			$scope.game = game;
-		});
-	});
-	socket.emit("game");
-
-	socket.on("endRound", function () {
+	function onEndRound() {
 		$scope.$apply(function () {
 			$location.path("/results");
 		});
-	});
+	}
+	socket.on("endRound", onEndRound);
 
 	var claimCardIndices = [];
 	$scope.claimCard = function (index) {
@@ -55,4 +47,8 @@ angular.module("app").controller("claimVoteController", function ($scope, $locat
 		socket.emit("claimCards", claimCardIndices);
 		if ($scope.playerId !== $scope.game.players[$scope.game.storytellerIndex].id) socket.emit("voteForCards", voteCardIndices);
 	};
+
+	$scope.$on("$destroy", function () {
+		socket.removeListener("endRound", onEndRound);
+	});
 });

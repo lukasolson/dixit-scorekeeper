@@ -31,6 +31,7 @@ io.sockets.on("connection", function (socket) {
 		player.gameId = game.id;
 		game.addPlayer(player);
 		socket.join(game.id);
+		socket.emit("game", game);
 		io.sockets.emit("games", games);
 	});
 
@@ -55,8 +56,10 @@ io.sockets.on("connection", function (socket) {
 	socket.on("beginRound", function () {
 		game.beginRound();
 		io.sockets.in(game.id).emit("beginRound");
+		io.sockets.in(game.id).emit("game", game);
 		io.sockets.emit("games", games);
-		game.on("endRound", function () {
+		game.once("endRound", function () {
+			io.sockets.in(game.id).emit("game", game);
 			io.sockets.in(game.id).emit("endRound");
 		});
 	});
