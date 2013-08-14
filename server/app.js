@@ -22,6 +22,7 @@ io.sockets.on("connection", function (socket) {
 	});
 
 	socket.on("createPlayer", function (name) {
+		console.log("creating player " + socket.id);
 		(players[socket.id] = player).name = name;
 	});
 
