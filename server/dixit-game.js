@@ -32,12 +32,12 @@ DixitGame.prototype.beginRound = function () {
 		this.cards.push({
 			index: i,
 			voterIds: []
-		})
-		if (i < this.players.length) {;
+		});
+		if (i < this.players.length) {
 			this.players[i].cards = [];
 			this.players[i].votes = [];
 			this.players[i].results = []
-		};
+		}
 	}
 
 	this.votesCount = 0;
