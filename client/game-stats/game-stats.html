@@ -23,5 +23,5 @@
 <div class="spaced" ng-show="game.players.length < 3">Waiting for more players. . . .</div>
 
 <div class="spaced pure-g" ng-hide="game.players.length < 3 || playerId != game.players[(game.storytellerIndex + 1) % game.players.length].id">
-	<button class="pure-u-1 pure-button pure-button-primary" ng-click="beginRound();">Begin Round</button>
+	<button class="pure-u-1 pure-button pure-button-primary" ng-tap="beginRound();">Begin Round</button>
 </div>
