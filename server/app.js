@@ -26,6 +26,10 @@ io.sockets.on("connection", function (socket) {
 		(players[socket.id] = player).name = name;
 	});
 
+	socket.on("getPlayer", function (playerId, callback) {
+		callback(players[playerId]);
+	});
+
 	socket.on("createGame", function () {
 		game = games[player.id] = new DixitGame(player.id);
 		player.gameId = game.id;
